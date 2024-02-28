@@ -37,4 +37,19 @@ stages:
       inputs:
           targetPath: '$(Pipeline.Workspace)'
           publishLocation: 'pipeline'
-   
+          
+- stage:
+  displayName: Deploy
+  jobs:
+  - job: Deploy
+    steps:
+    - task: AzureResourceGroupDeployment@2
+      inputs:
+          azureSubscription: 'azure-connection'
+          action: 'Create Or Update Resource Group'
+          resourceGroupName: 'Newdeployment'
+          location: 'East US 2'
+          templateLocation: 'Linked artifact'
+          csmFile: 'ACR.json'
+          deploymentMode: 'Incremental'
+    
