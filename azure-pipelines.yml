@@ -51,7 +51,6 @@ stages:
         location: 'East US 2'
         templateLocation: 'Linked artifact'
         csmFile: '$(Pipeline.Workspace)/**/ACR.json'
-        overrideParameters: '-appName $(appName)  -appSku "S1 Standard" -acrName $(acrName) -acrLocation "$(location)" -acrSku standard -containerName $(containerName):$(Build.BuildId)'
         deploymentMode: 'Incremental'
 
         
