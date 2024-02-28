@@ -45,11 +45,12 @@ stages:
     steps:
     - task: AzureResourceGroupDeployment@2
       inputs:
-          azureSubscription: 'azure-connection'
-          action: 'Create Or Update Resource Group'
-          resourceGroupName: 'Newdeployment'
-          location: 'East US 2'
-          templateLocation: 'Linked artifact'
-          csmFile: 'ACR.json'
-          deploymentMode: 'Incremental'
+        azureSubscription: 'azure-connection'
+        action: 'Create Or Update Resource Group'
+        resourceGroupName: 'Newdeployment'
+        location: 'East US 2'
+        templateLocation: 'Linked artifact'
+        csmFile: '$(Build.ArtifactStagingDirectory)/drop/**/ARM-2ACR.json'
+        deploymentMode: 'Incremental'
+        
     
