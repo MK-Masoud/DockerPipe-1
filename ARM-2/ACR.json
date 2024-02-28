@@ -5,7 +5,7 @@
 
     "acrlocation": {
         "type": "string",
-         "defaultValue": "EastUS2"
+         "defaultValue": "EEast US 2"
     },
 
     
