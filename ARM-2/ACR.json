@@ -4,8 +4,11 @@
   "parameters": {
 
     "acrlocation": {
-        "type": "string"
+        "type": "string",
+         "defaultValue": "east-US2"
     },
+
+    
     "acrSku": {
       "type": "string",
       "defaultValue": "Standard",
@@ -14,9 +17,11 @@
         "Standard",
         "Premium"
       ],
+      
       "metadata": {
         "description": "SKU of the Azure Container Registry"
       }
+      
     },
     "appServicePlanSku": {
       "type": "string",

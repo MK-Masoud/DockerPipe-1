@@ -19,6 +19,7 @@
             "type": "bool",
             "defaultValue": true
         }
+        
     },
     "functions": [],
     "variables": {
