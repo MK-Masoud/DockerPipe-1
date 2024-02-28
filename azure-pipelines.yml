@@ -50,7 +50,8 @@ stages:
         resourceGroupName: 'Newdeployment'
         location: 'East US 2'
         templateLocation: 'Linked artifact'
-        csmFile: '$(Build.ArtifactStagingDirectory)/Build.Build/**/ACR.json'
+        csmFile: '$(Build.ArtifactStagingDirectory)/**/ACR.json'
+        overrideParameters: '-appName $(appName)  -appSku "S1 Standard" -acrName $(acrName) -acrLocation "$(location)" -acrSku standard -containerName $(containerName):$(Build.BuildId)'
         deploymentMode: 'Incremental'
         
     
