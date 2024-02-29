@@ -48,7 +48,7 @@
   },
   "variables": {
     "acrName": "[concat('acr', uniqueString(resourceGroup().id))]",
-    "appServicePlanName": "[concat('_',parameters('location'),resourceGroup().id)]",
+    "appServicePlanName": "[concat('serviceapp', uniqueString(resourceGroup().id))]",
     "webAppName": "[concat('webapp', uniqueString(resourceGroup().id))]"
   },
   "resources": [
