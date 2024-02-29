@@ -29,14 +29,7 @@
       
     },
 
-    "divisionnumber": {
-        "type":"int",
-        "allowedValues": [
-           110,
-           220,
-           330  
-         ]
-    },
+   
     "appServicePlanSku": {
       "type": "string",
       "defaultValue": "S1",
@@ -55,7 +48,7 @@
   },
   "variables": {
     "acrName": "[concat('acr', uniqueString(resourceGroup().id))]",
-    "appServicePlanName": "[concat(parameters('divisionnumber'),'_',parameters('location'))]",
+    "appServicePlanName": "[concat('_',parameters('location'),resourceGroup().id)]",
     "webAppName": "[concat('webapp', uniqueString(resourceGroup().id))]"
   },
   "resources": [
