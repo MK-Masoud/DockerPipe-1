@@ -6,7 +6,7 @@
     "location":{
       "type": "string",
        "allowedValues": [
-        "east",
+        "eastus",
          "west",
           "central"
        ]
