@@ -10,7 +10,7 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
-  location: eastus
+  location: 'eastus'
 
 stages:
 - stage: Build
@@ -51,7 +51,7 @@ stages:
         resourceGroupName: 'Newdeployment'
         templateLocation: 'Linked artifact'
         csmFile: '$(Pipeline.Workspace)/**/ACR.json'
-        overrideParameters: '-location $(location)'
+        overrideParameters: '-location "$(location)"'
         deploymentMode: 'Incremental'
 
         
