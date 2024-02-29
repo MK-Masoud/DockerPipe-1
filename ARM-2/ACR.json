@@ -54,7 +54,7 @@
   "resources": [
     {
       "type": "Microsoft.ContainerRegistry/registries",
-      "apiVersion": "2021-06-01",
+      "apiVersion": "2021-09-01",
       "name": "[variables('acrName')]",
       "location": "[parameters('location')]",
       "sku": {
