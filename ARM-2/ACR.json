@@ -8,7 +8,7 @@
        "allowedValues": [
         "eastus",
          "west",
-          "central"
+         "central"
        ]
     },
 
@@ -56,7 +56,7 @@
       "type": "Microsoft.ContainerRegistry/registries",
       "apiVersion": "2021-06-01",
       "name": "[variables('acrName')]",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('location')]",
       "sku": {
         "name": "[parameters('acrSku')]"
       },
@@ -68,7 +68,7 @@
       "type": "Microsoft.Web/serverfarms",
       "apiVersion": "2018-02-01",
       "name": "[variables('appServicePlanName')]",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('location')]",
       "sku": {
         "name": "[parameters('appServicePlanSku')]",
         "tier": "Standard"
@@ -79,7 +79,7 @@
       "type": "Microsoft.Web/sites",
       "apiVersion": "2018-02-01",
       "name": "[variables('webAppName')]",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('location')]",
       "dependsOn": [
         "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanName'))]",
         "[resourceId('Microsoft.ContainerRegistry/registries', variables('acrName'))]"
