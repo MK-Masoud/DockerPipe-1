@@ -3,10 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
 
-    "acrlocation": {
-        "type": "string",
-         "defaultValue": "swedencentral"
-    },
+
 
     
     "acrSku": {
@@ -49,7 +46,7 @@
       "type": "Microsoft.ContainerRegistry/registries",
       "apiVersion": "2019-12-01",
       "name": "[variables('acrName')]",
-      "location": "[parameters('acrlocation')]",
+      "location": "[resourceGroup().location]",
       "sku": {
         "name": "[parameters('acrSku')]"
       },
