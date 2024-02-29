@@ -32,9 +32,9 @@
     "divisionnumber": {
         "type":"int",
         "allowedValues": [
-           110,
-           220,
-           330  
+           "110",
+           "220",
+           "330"  
          ] 
     },
     "appServicePlanSku": {
