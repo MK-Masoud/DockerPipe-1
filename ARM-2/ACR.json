@@ -3,7 +3,14 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
 
-
+    "location":{
+      "type": "string",
+       "allowedValues": [
+        "east",
+         "west",
+          "central"
+       ]
+    },
 
     
     "acrSku": {
@@ -14,11 +21,21 @@
         "Standard",
         "Premium"
       ],
+
       
       "metadata": {
         "description": "SKU of the Azure Container Registry"
       }
       
+    },
+
+    "divisionnumber": {
+        "type":"int",
+        "allowedValues": [
+           110,
+           220,
+           330  
+         ] 
     },
     "appServicePlanSku": {
       "type": "string",
@@ -38,7 +55,7 @@
   },
   "variables": {
     "acrName": "[concat('acr', uniqueString(resourceGroup().id))]",
-    "appServicePlanName": "[concat('asp', uniqueString(resourceGroup().id))]",
+    "appServicePlanName": "[concat(parameters('divisionnumber'),'_',parameters('location'))]",
     "webAppName": "[concat('webapp', uniqueString(resourceGroup().id))]"
   },
   "resources": [
