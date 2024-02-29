@@ -49,6 +49,7 @@ stages:
         azureSubscription: 'azure-connection'
         action: 'Create Or Update Resource Group'
         resourceGroupName: 'Newdeployment'
+        location: 'East US'
         templateLocation: 'Linked artifact'
         csmFile: '$(Pipeline.Workspace)/**/ACR.json'
         overrideParameters: '-location "$(location)"'
