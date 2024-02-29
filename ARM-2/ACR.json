@@ -12,7 +12,14 @@
        ]
     },
 
-    
+    "acrname":{
+     "type": "string"
+
+
+    },
+
+    acr
+
     "acrSku": {
       "type": "string",
       "defaultValue": "Standard",
@@ -47,7 +54,7 @@
     }
   },
   "variables": {
-    "acrName": "[concat('acr', uniqueString(resourceGroup().id))]",
+    "acrName": "[concat (parameters('acrname'))]",
     "appServicePlanName": "[concat('serviceapp', uniqueString(resourceGroup().id))]",
     "webAppName": "[concat('webapp', uniqueString(resourceGroup().id))]"
   },

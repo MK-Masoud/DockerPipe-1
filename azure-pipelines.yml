@@ -1,59 +1,48 @@
-# Docker
-# Build a Docker image
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
 trigger:
 - main
 
-resources:
-- repo: self
-
-variables:
-  tag: '$(Build.BuildId)'
-  location: 'eastus2'
-
 stages:
-- stage: Build
-  displayName: Build image
+- stage: Deploy
+  displayName: 'Deploy Resources'
   jobs:
-  - job: Build
-    displayName: Build
+  - job: DeployResources
+    displayName: 'Deploy ARM Templates'
     pool:
-      vmImage: ubuntu-latest
+      vmImage: 'ubuntu-latest'
     steps:
-    - task: Docker@2
-      displayName: Build an image
+    - task: AzureResourceManagerTemplateDeployment@3
       inputs:
-        command: build
-        dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
-        tags: |
-          $(tag)
-    - task: PublishBuildArtifacts@1
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
-        
-    - task: PublishPipelineArtifact@1
-      inputs:
-          targetPath: '$(Pipeline.Workspace)'
-          publishLocation: 'pipeline'
-          
-- stage:
-  displayName: Deploy
-  jobs:
-  - job: Deploy
-    steps:
-    - task: AzureResourceGroupDeployment@2
-      inputs:
-        azureSubscription: 'azure-connection'
+        deploymentScope: 'Resource Group'
+        azureResourceManagerConnection: 'your-service-connection-name'
+        subscriptionId: 'your-subscription-id'
         action: 'Create Or Update Resource Group'
-        resourceGroupName: 'Newdeployment'
-        location: 'East US'
+        resourceGroupName: 'your-resource-group-name'
+        location: 'your-location'
         templateLocation: 'Linked artifact'
-        csmFile: '$(Pipeline.Workspace)/**/ACR.json'
-        overrideParameters: '-location "$(location)"'
-        deploymentMode: 'Incremental'
-
-        
-    
+        csmFile: 'azure-container-registry.json'
+        overrideParameters: '-registryName $(containerRegistryName) -location $(location) -sku $(registrySku)'
+      displayName: 'Deploy Azure Container Registry'
+    - task: AzureResourceManagerTemplateDeployment@3
+      inputs:
+        deploymentScope: 'Resource Group'
+        azureResourceManagerConnection: 'your-service-connection-name'
+        subscriptionId: 'your-subscription-id'
+        action: 'Create Or Update Resource Group'
+        resourceGroupName: 'your-resource-group-name'
+        location: 'your-location'
+        templateLocation: 'Linked artifact'
+        csmFile: 'azure-app-service-plan.json'
+        overrideParameters: '-appServicePlanName $(appServicePlanName) -location $(location) -sku $(appServicePlanSku)'
+      displayName: 'Deploy App Service Plan'
+    - task: AzureResourceManagerTemplateDeployment@3
+      inputs:
+        deploymentScope: 'Resource Group'
+        azureResourceManagerConnection: 'your-service-connection-name'
+        subscriptionId: 'your-subscription-id'
+        action: 'Create Or Update Resource Group'
+        resourceGroupName: 'your-resource-group-name'
+        location: 'your-location'
+        templateLocation: 'Linked artifact'
+        csmFile: 'azure-web-app.json'
+        overrideParameters: '-webAppName $(webAppName) -appServicePlanName $(appServicePlanName) -registryId $(containerRegistryId) -location $(location)'
+      displayName: 'Deploy Web App'
