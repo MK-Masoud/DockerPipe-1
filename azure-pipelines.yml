@@ -2,6 +2,23 @@ trigger:
 - main
 
 stages:
+- stage: Build
+  displayName: 'Build and Push Docker Image'
+  jobs:
+  - job: Build
+    displayName: 'Build Docker Image'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: Docker@2
+      displayName: 'Build and Push'
+      inputs:
+        containerRegistry: 'your-container-registry-connection-name'
+        repository: 'your-docker-image-name'
+        command: 'buildAndPush'
+        Dockerfile: '$(Build.SourcesDirectory)/Dockerfile'
+        tags: '$(Build.BuildId)'
+
 - stage: Deploy
   displayName: 'Deploy Resources'
   jobs:
@@ -40,8 +57,8 @@ stages:
         azureResourceManagerConnection: 'your-service-connection-name'
         subscriptionId: 'your-subscription-id'
         action: 'Create Or Update Resource Group'
-        resourceGroupName: 'Newdeployment'
-        location: 'East US 2'
+        resourceGroupName: 'your-resource-group-name'
+        location: 'your-location'
         templateLocation: 'Linked artifact'
         csmFile: 'azure-web-app.json'
         overrideParameters: '-webAppName $(webAppName) -appServicePlanName $(appServicePlanName) -registryId $(containerRegistryId) -location $(location)'
