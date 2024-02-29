@@ -10,7 +10,7 @@ resources:
 
 variables:
   tag: '$(Build.BuildId)'
-  location: 'eastus'
+  location: 'eastus2'
 
 stages:
 - stage: Build
