@@ -40,6 +40,5 @@ stages:
         azureSubscriptionEndpoint: 'azure-connection'
         azureContainerRegistry: '($acrHostname)'
         command: 'Push an image'
-        dockerFile: '**/Dockerfile'
         imageName: '$(Build.Repository.Name):$(Build.BuildId)'
       displayName: 'Push the image'
