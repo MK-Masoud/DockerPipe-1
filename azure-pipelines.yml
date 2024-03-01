@@ -32,7 +32,7 @@ stages:
         azureSubscriptionEndpoint: 'azureSrvcConn'
         azureContainerRegistry: '$(acrhostName)'
         command: 'Build an image'
-        dockerFile: '$(System.DefaultWorkingDirectory)/**/Dockerfile'
+        dockerFile: '**/Dockerfile'
         imageName: '$(Build.Repository.Name):$(Build.BuildId)'
       displayName: 'build'
     - task: Docker@1
