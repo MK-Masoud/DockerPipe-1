@@ -1,25 +1,32 @@
-FROM node as build 
+# Stage 1: Build the Node.js application
+FROM node:14 AS build
 
+# Set the working directory in the container
+WORKDIR /usr/src/app
 
-WORKDIR /react-app
-
-
+# Copy package.json and package-lock.json files to the working directory
 COPY package*.json ./
 
+# Install dependencies
+RUN npm install
 
-RUN yarn install
-
-
+# Copy the remaining application code to the working directory
 COPY . .
 
+# Build the Node.js application
+RUN npm run build
 
-RUN yarn run build
+# Stage 2: Create a production image with Nginx
+FROM nginx:alpine
 
+# Copy the built Node.js application from the previous stage
+COPY --from=build /usr/src/app/build /usr/share/nginx/html
 
-FROM nginx
+# Copy the nginx configuration file
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
+# Expose port 80 to the outside world
+EXPOSE 80
 
-COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
-
-
-COPY --from=build /react-app/build /usr/share/nginx/html
+# Command to start Nginx
+CMD ["nginx", "-g", "daemon off;"]
