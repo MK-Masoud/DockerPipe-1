@@ -16,7 +16,7 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - task: AzureResourceGroupDeployment@2
-      displayName: 'create the ACR'
+      displayName: 'create a ACR'
       inputs:
         azureSubscription: 'azureSrvcConn'
         action: 'Create Or Update Resource Group'
