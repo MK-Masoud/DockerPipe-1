@@ -31,7 +31,7 @@ stages:
         azureSubscriptionEndpoint: 'azure-connection'
         azureContainerRegistry: '$(acrHostName)'
         command: 'Build an image'
-        dockerFile: '**/Dockerfile'
+        dockerFile: '$(System.DefaultWorkingDirectory)/**/Dockerfile'
         imageName: '$(Build.Repository.Name):$(Build.BuildId)'
       displayName: 'build'
     - task: Docker@1
