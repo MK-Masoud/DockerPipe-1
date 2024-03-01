@@ -21,6 +21,7 @@ stages:
        azureSubscription: 'azure-connection'
        action: 'Create Or Update Resource Group'
        resourceGroupName: 'cicdpipeline'
+       location: '$(location)'
        csmFile: '$(System.DefaultWorkingDirectory)/**/azure-container-registry.json'
        overrideParameters: '-registryName "$(registryName)" -sku Standard  -location $(location)'
        deploymentMode: 'Incremental'
