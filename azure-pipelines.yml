@@ -15,15 +15,15 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - task: AzureResourceGroupDeployment@1
+    - task: AzureResourceGroupDeployment@2
+      displayName: 'create the ACR'
       inputs:
-        ConnectedServiceName: 'azure-connection'
-        action: 'Create Or Update Resource Group'
-        resourceGroupName: 'newdeployment'
-        
-        csmFile: '$(System.DefaultWorkingDirectory)/**/azure-container-registry.json'
-        deploymentMode: 'Incremental'
-        overrideParameters: '-registryName "$(registryName)" -sku Standard  -location $(location)'
+       azureSubscription: 'azure-connection'
+       action: 'Create Or Update Resource Group'
+       resourceGroupName: 'cicdpipeline'
+       csmFile: '$(System.DefaultWorkingDirectory)/**/azure-container-registry.json'
+       overrideParameters: '-registryName "$(registryName)" -sku Standard  -location $(location)'
+       deploymentMode: 'Incremental'
     - task: Docker@1
       inputs:
         containerregistrytype: 'Azure Container Registry'
