@@ -35,11 +35,11 @@ stages:
         dockerFile: '**/Dockerfile'
         imageName: '$(Build.Repository.Name):$(Build.BuildId)'
       displayName: 'build'
+    
     - task: Docker@1
       inputs:
-        containerregistrytype: 'Azure Container Registry'
-        azureSubscriptionEndpoint: 'azureSrvcConn'
-        azureContainerRegistry: '($acrhostname)'
-        command: 'Push an image'
-        imageName: '$(Build.Repository.Name):$(Build.BuildId)'
-      displayName: 'Push the image'
+          containerregistrytype: 'Azure Container Registry'
+          azureSubscriptionEndpoint: 'azureSrvcConn'
+          azureContainerRegistry: '($acrhostname)'
+          command: 'Push an image'
+          imageName: '$(Build.Repository.Name):$(Build.BuildId)'
